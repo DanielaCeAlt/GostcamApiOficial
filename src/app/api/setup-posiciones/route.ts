@@ -19,7 +19,7 @@ export async function POST() {
 
     // Verificar si ya hay datos
     const existingData = await executeQuery('SELECT COUNT(*) as count FROM posiciones');
-    const hasData = existingData && existingData[0] && existingData[0].count > 0;
+    const hasData = existingData && existingData[0] && (existingData[0] as any).count > 0;
 
     if (!hasData) {
       // Insertar posiciones iniciales

@@ -18,6 +18,7 @@ interface Sucursal {
   codigo: string;
   zona?: string;
   estado?: string;
+  equiposAsignados?: number;
 }
 
 interface Posicion {
@@ -117,9 +118,9 @@ const EquiposCambioUbicacion: React.FC<EquiposCambioUbicacionProps> = ({
       console.error('❌ Error cargando sucursales:', err);
       // Fallback con datos estáticos
       const fallbackSucursales = [
-        { id: 'SUC001', nombre: 'Sucursal Principal' },
-        { id: 'SUC002', nombre: 'Sucursal Norte' },
-        { id: 'SUC003', nombre: 'Sucursal Sur' }
+        { id: 'SUC001', nombre: 'Sucursal Principal', codigo: 'PRINCIPAL' },
+        { id: 'SUC002', nombre: 'Sucursal Norte', codigo: 'NORTE' },
+        { id: 'SUC003', nombre: 'Sucursal Sur', codigo: 'SUR' }
       ];
       console.log('🔄 Usando sucursales de fallback:', fallbackSucursales);
       setSucursales(fallbackSucursales);

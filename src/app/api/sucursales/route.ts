@@ -4,7 +4,7 @@ import { executeQuery } from "@/lib/database";
 export async function GET() {
   try {
     // Intentar obtener sucursales basándose en los datos reales de la tabla equipo
-    let sucursales = [];
+    let sucursales: any[] = [];
     
     try {
       // Obtener las posiciones distintas de los equipos existentes

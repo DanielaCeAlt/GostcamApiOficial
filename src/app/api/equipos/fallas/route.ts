@@ -306,7 +306,7 @@ export async function POST(request: NextRequest) {
       tecnico_asignado || null,
       ubicacion_falla,
       impacto,
-      requiere_repuestos,
+      requiere_repuestos ? 1 : 0,
       observaciones
     ]);
 
@@ -423,7 +423,7 @@ export async function PUT(request: NextRequest) {
       const fallaResult = await executeQuery(fallaQuery, [id]);
       
       if (fallaResult.length > 0) {
-        const no_serie = fallaResult[0].no_serie;
+        const no_serie = (fallaResult[0] as any).no_serie;
         
         // Verificar si hay otras fallas abiertas para este equipo
         const otrasFallasQuery = `
@@ -434,7 +434,7 @@ export async function PUT(request: NextRequest) {
         const otrasFallas = await executeQuery(otrasFallasQuery, [no_serie, id]);
         
         // Si no hay otras fallas, poner el equipo como activo
-        if (otrasFallas[0].count === 0) {
+        if ((otrasFallas[0] as any).count === 0) {
           await executeQuery(
             `UPDATE equipo SET EstatusEquipo = 'Activo' WHERE no_serie = ?`,
             [no_serie]
