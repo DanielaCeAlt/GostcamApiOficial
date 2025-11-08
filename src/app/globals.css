@@ -3,11 +3,11 @@
 body {
   box-sizing: border-box;
   /* Fondo gris claro para toda la página */
-  background-color: #f9fafb; /* Equivale a bg-gray-50 */
+  background-color: #f5f5f5; /* Gris claro suave */
 }
 
 html {
-  background-color: #f9fafb; /* Equivale a bg-gray-50 */
+  background-color: #f5f5f5; /* Gris claro suave */
 }
 
 /* Dark mode */
