@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { useEquipos } from '@/hooks/useEquipos';
 import { useApp } from '@/contexts/AppContext';
+import EquiposFiltros from './EquiposFiltros';
 
 interface EquiposListProps {
   onEquipoSelect?: (noSerie: string) => void;
@@ -121,45 +122,13 @@ export default function EquiposList({
       </div>
 
       {/* Filtros */}
-      <div className="bg-white rounded-lg shadow p-6">
-        <h3 className="text-lg font-medium text-gray-900 mb-4">Filtros de Búsqueda</h3>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
-          {/* Búsqueda de texto */}
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Búsqueda general
-            </label>
-            <input
-              type="text"
-              value={filtros.texto}
-              onChange={(e) => handleFiltroChange('texto', e.target.value)}
-              placeholder="Serie, nombre, modelo..."
-              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-        </div>
-
-        {/* Botones de acción */}
-        <div className="flex space-x-3">
-          <button
-            onClick={handleBuscar}
-            disabled={loading}
-            className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 disabled:opacity-50"
-          >
-            <i className="fas fa-search mr-2"></i>
-            {loading ? 'Buscando...' : 'Buscar'}
-          </button>
-          
-          <button
-            onClick={handleLimpiarFiltros}
-            className="bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600"
-          >
-            <i className="fas fa-times mr-2"></i>
-            Limpiar
-          </button>
-        </div>
-      </div>
+      <EquiposFiltros
+        filtros={filtros}
+        loading={loading}
+        onFiltroChange={handleFiltroChange}
+        onBuscar={handleBuscar}
+        onLimpiarFiltros={handleLimpiarFiltros}
+      />
 
       {/* Tabla de equipos */}
       <div className="bg-white rounded-lg shadow overflow-hidden">

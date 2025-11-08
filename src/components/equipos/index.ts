@@ -8,6 +8,7 @@ export { default as EquiposEditar } from './EquiposEditar';
 export { default as EquiposCambioUbicacion } from './EquiposCambioUbicacion';
 export { default as EquiposMantenimiento } from './EquiposMantenimiento';
 export { default as EquiposFallas } from './EquiposFallas';
+export { default as EquiposFiltros } from './EquiposFiltros';
 export { default as ConfirmDeleteModal } from './ConfirmDeleteModal';
 
 // Re-exportar hooks relacionados
