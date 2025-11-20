@@ -1,0 +1,282 @@
+@import "tailwindcss";
+
+/* Asegurar tema claro por defecto */
+html {
+  background-color: #f3f4f6; /* gray-100 */
+}
+
+body {
+  box-sizing: border-box;
+  background-color: #f3f4f6; /* gray-100 */
+  color: #1f2937; /* gray-800 */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+  from { 
+    opacity: 0; 
+    transform: translateY(10px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+.slide-in {
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from { 
+    transform: translateX(-100%); 
+  }
+  to { 
+    transform: translateX(0); 
+  }
+}
+
+@keyframes wave {
+  0% {
+    transform: translateX(-100%);
+  }
+  50% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-wave {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  background-size: 200% 100%;
+  animation: wave 1.5s infinite;
+}
+
+/* Improved focus styles */
+.focus-visible:focus {
+  @apply outline-2 outline-offset-2 outline-blue-500;
+}
+
+/* Custom scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  @apply bg-gray-100;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  @apply bg-gray-300 rounded-full;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-400;
+}
+
+/* ===== Utilidades de Accesibilidad ===== */
+.focus-visible-ring {
+  outline: none;
+  box-shadow: 0 0 0 2px white, 0 0 0 4px #3b82f6;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* ===== Touch Target Mínimos (44px) ===== */
+button, a[role="button"], [role="button"] {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* ===== Skeleton Loader ===== */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--bg-hover) 0%,
+    var(--bg-card) 50%,
+    var(--bg-hover) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* ===== Mobile Optimizations ===== */
+
+/* Ocultar scrollbar en navegación horizontal */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;     /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;             /* Chrome, Safari and Opera */
+}
+
+/* Animación de fade in/out para instrucciones */
+@keyframes fade-in-out {
+  0% { opacity: 0; transform: translateY(-5px); }
+  15% { opacity: 1; transform: translateY(0); }
+  85% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-5px); }
+}
+
+.animate-fade-in-out {
+  animation: fade-in-out 4s ease-in-out;
+}
+
+/* Borde de 3px para tabs */
+.border-b-3 {
+  border-bottom-width: 3px;
+}
+
+/* Optimización para touch */
+.touch-manipulation {
+  touch-action: manipulation;
+}
+
+/* Mejora el contraste en elementos interactivos */
+.touch-target {
+  position: relative;
+}
+
+.touch-target::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background-color: transparent;
+  transition: background-color 0.2s ease;
+}
+
+.touch-target:active::before {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Efectos de presionado móvil */
+.mobile-press {
+  transform: scale(1);
+  transition: transform 0.1s ease;
+}
+
+.mobile-press:active {
+  transform: scale(0.95);
+}
+
+/* Espaciado mejorado para elementos móviles */
+.mobile-spacing > * + * {
+  margin-top: 0.75rem; /* 12px */
+}
+
+.mobile-spacing-sm > * + * {
+  margin-top: 0.5rem; /* 8px */
+}
+
+.mobile-spacing-lg > * + * {
+  margin-top: 1rem; /* 16px */
+}
+
+/* Pull to refresh indicator */
+@keyframes pull-refresh {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.pull-refresh-spinner {
+  animation: pull-refresh 1s linear infinite;
+}
+
+/* Swipe indicators */
+.swipe-indicator {
+  position: relative;
+}
+
+.swipe-indicator::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(59, 130, 246, 0.5) 50%,
+    transparent 100%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.swipe-indicator.swipe-detected::after {
+  opacity: 1;
+}
+
+/* Mejoras de accesibilidad táctil */
+@media (hover: none) and (pointer: coarse) {
+  /* Estilos específicos para dispositivos táctiles */
+  
+  .hover-only {
+    display: none;
+  }
+  
+  /* Incrementar área de touch en elementos pequeños */
+  button, 
+  [role="button"],
+  a,
+  input[type="checkbox"],
+  input[type="radio"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Mejorar feedback visual en touch */
+  button:active,
+  [role="button"]:active {
+    background-color: rgba(0, 0, 0, 0.05);
+    transform: scale(0.98);
+  }
+}
+
+/* Landscape optimizations para móviles */
+@media screen and (orientation: landscape) and (max-height: 500px) {
+  .mobile-landscape-compact {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+  
+  .mobile-landscape-compact .mobile-spacing > * + * {
+    margin-top: 0.5rem;
+  }
+}
