@@ -25,7 +25,6 @@ from modelos.InventarioModel import (
 async def lifespan(app: FastAPI):
     print("🚀 Aplicación GostCAM iniciada correctamente")
     print("📊 Versión: 2.0.0")
-    print("🐍 Python 3.11 runtime")
     if verificar_conexion():
         print("✅ Conexión a base de datos establecida")
     else:
@@ -42,8 +41,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(
     title="Sistema de Gestión de Inventarios - GostCAM",
     description="API REST para gestión de inventarios de equipos de seguridad",
-    version="2.0.0",
-    lifespan=lifespan
+ 
 )
 
 # Middleware CORS
