@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 from sqlalchemy import text
 from sqlalchemy.exc import IntegrityError, OperationalError, ProgrammingError
-from typing import Optional
+from typing import Union, Optional
 from modelos.InventarioModel import *
 from utils.logger import log_performance, log_audit_change, gostcam_logger
 from utils.validaciones import ValidacionesNegocio
@@ -224,14 +224,12 @@ class DAOInventario:
             estado_actual = getattr(resultado, "idEstatus")
             estado_nuevo = datos.get('idEstatus')
             
-            if estado_nuevo is None:
-                raise ValueError("El estatus es requerido")
-            
             # 2. VALIDACIONES DE NEGOCIO
+            if estado_nuevo is None:
+                raise ValueError("Estado nuevo requerido")
             es_valida, mensaje_error = ValidacionesNegocio.validar_transicion_estado(estado_actual, estado_nuevo)
             if not es_valida:
                 raise ValueError(f"Transición inválida: {mensaje_error}")
-                raise ValueError("Equipo no encontrado")
 
             # 2. Actualizar estatus del equipo
             self.sesion.execute(
@@ -515,6 +513,7 @@ class DAOInventario:
         except Exception as error:
             raise ValueError(f"Error al obtener estatus: {str(error)}")
 
+    # @cached("sucursales", ttl=3600)  # 1 hora de cache - temporalmente deshabilitado
     def obtener_sucursales(self):
         """Obtiene todas las sucursales"""
         try:

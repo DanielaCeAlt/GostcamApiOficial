@@ -8,7 +8,7 @@ load_dotenv()
 
 class Settings:
     # Base de datos
-    DATABASE_URL = os.getenv("DATABASE_URL", "mysql+pymysql://gostcam:Altamirano92@mysql-gostcam.mysql.database.azure.com:3306/GostCAM?ssl_ca=&ssl_disabled=False")
+    DATABASE_URL ='mysql+pymysql://gostcam:Altamirano92@mysql-gostcam.mysql.database.azure.com:3306/gostcam?charset=utf8mb4'
     
     # Seguridad
     SECRET_KEY = os.getenv("SECRET_KEY", "CAMBIA_ESTE_SECRET_SUPER_SEGURO")

@@ -2,12 +2,11 @@ from sqlalchemy import create_engine, text
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 import os
-from config.settings import settings
 
-# URL de conexión desde configuración
-DATABASE_URL = settings.DATABASE_URL
+# URL de conexión directa (sin dotenv) - SSL requerido para Azure MySQL
+DATABASE_URL = 'mysql+pymysql://gostcam:Altamirano92@mysql-gostcam.mysql.database.azure.com:3306/gostcam?charset=utf8mb4'
 
-# Configuración del motor de base de datos
+# Configuración del motor de base de datos con SSL para Azure MySQL
 engine = create_engine(
     DATABASE_URL,
     echo=False,  # Cambiar a True para ver las consultas SQL en desarrollo
@@ -16,8 +15,8 @@ engine = create_engine(
     connect_args={
         "charset": "utf8mb4",
         "autocommit": False,
-        "ssl_disabled": False,
-        "ssl": {"disabled": False}
+        "ssl": {'check_hostname': False},
+        "ssl_disabled": False
     }
 )
 

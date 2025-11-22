@@ -31,7 +31,7 @@ class DAOUsuarios:
             # Consultar usuario por correo
             consulta = text("""
                 SELECT idUsuarios, NombreUsuario, NivelUsuario, Correo, Contraseña, Estatus
-                FROM GostCAM.Usuarios
+                FROM gostcam.Usuarios
                 WHERE Correo = :correo
                 LIMIT 1
             """)

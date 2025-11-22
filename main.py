@@ -155,47 +155,6 @@ def obtener_usuario_actual(credenciales: HTTPBasicCredentials = Depends(segurida
     
     return usuario
 
-# ====== ENDPOINT DE HEALTH CHECK ======
-@app.get("/health", summary="Health Check", description="Endpoint para verificar el estado de la API")
-async def health_check():
-    """
-    Endpoint de health check para Azure App Service y monitoreo
-    """
-    try:
-        # Verificar conexión a base de datos
-        db_status = verificar_conexion()
-        
-        return {
-            "status": "healthy",
-            "service": "GostCAM API",
-            "version": "2.0.0",
-            "database": "connected" if db_status else "disconnected",
-            "timestamp": time.time(),
-            "cache": "active" if cache_manager else "inactive"
-        }
-    except Exception as e:
-        gostcam_logger.logger.error(f"Health check failed: {str(e)}")
-        return {
-            "status": "unhealthy",
-            "service": "GostCAM API",
-            "version": "2.0.0",
-            "error": str(e),
-            "timestamp": time.time()
-        }
-
-@app.get("/", summary="API Info", description="Información básica de la API")
-async def api_info():
-    """
-    Endpoint raíz con información de la API
-    """
-    return {
-        "message": "GostCAM API - Sistema de Gestión de Inventarios",
-        "version": "2.0.0",
-        "status": "running",
-        "docs": "/docs",
-        "health": "/health"
-    }
-
 def verificar_rol(usuario, roles_permitidos: list):
     nivel = getattr(usuario, 'nivel', usuario.get('nivel') if isinstance(usuario, dict) else None)
     
@@ -311,7 +270,7 @@ async def registrar_alta_equipo(equipo: AltaEntrada, request: Request, usuario_a
     verificar_rol(usuario_actual, [1, 2])
     dao = DAOInventario(sesion)
     try:
-        return dao.registrar_alta(equipo.dict())
+        return dao.registrar_alta(equipo.model_dump())
     except ValueError as error:
         raise HTTPException(status.HTTP_400_BAD_REQUEST, detail=str(error))
     except Exception as error:
@@ -322,7 +281,7 @@ async def registrar_baja_equipo(datos: BajaEntrada, usuario_actual = Depends(obt
     verificar_rol(usuario_actual, [1, 2])
     dao = DAOInventario(sesion)
     try:
-        return dao.registrar_baja(datos.dict())
+        return dao.registrar_baja(datos.model_dump())
     except ValueError as error:
         raise HTTPException(status.HTTP_400_BAD_REQUEST, detail=str(error))
     except Exception as error:
@@ -333,7 +292,7 @@ async def actualizar_estado_equipo(datos: EstadoEquipoEntrada, usuario_actual = 
     verificar_rol(usuario_actual, [1, 2, 3])
     dao = DAOInventario(sesion)
     try:
-        return dao.actualizar_estado(datos.dict())
+        return dao.actualizar_estado(datos.model_dump())
     except ValueError as error:
         raise HTTPException(status.HTTP_400_BAD_REQUEST, detail=str(error))
     except Exception as error:
@@ -344,7 +303,7 @@ async def actualizar_movimiento(datos: MovimientoActualizarEntrada, usuario_actu
     verificar_rol(usuario_actual, [1, 2])
     dao = DAOInventario(sesion)
     try:
-        return dao.actualizar_movimiento(datos.dict())
+        return dao.actualizar_movimiento(datos.model_dump())
     except ValueError as error:
         raise HTTPException(status.HTTP_400_BAD_REQUEST, detail=str(error))
     except Exception as error:
@@ -396,7 +355,7 @@ async def registrar_mantenimiento(datos: MantenimientoEntrada, usuario_actual = 
     verificar_rol(usuario_actual, [1, 2, 3])
     dao = DAOInventario(sesion)
     try:
-        return dao.registrar_mantenimiento(datos.dict())
+        return dao.registrar_mantenimiento(datos.model_dump())
     except ValueError as error:
         raise HTTPException(status.HTTP_400_BAD_REQUEST, detail=str(error))
     except Exception as error:
