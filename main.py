@@ -313,7 +313,7 @@ async def registrar_alta_equipo(equipo: AltaEntrada, request: Request, usuario_a
     verificar_rol(usuario_actual, [1, 2])
     dao = DAOInventario(sesion)
     try:
-        return dao.registrar_alta(equipo.model_dump())
+        return dao.registrar_alta(equipo.dict())
     except ValueError as error:
         raise HTTPException(status.HTTP_400_BAD_REQUEST, detail=str(error))
     except Exception as error:
@@ -324,7 +324,7 @@ async def registrar_baja_equipo(datos: BajaEntrada, usuario_actual = Depends(obt
     verificar_rol(usuario_actual, [1, 2])
     dao = DAOInventario(sesion)
     try:
-        return dao.registrar_baja(datos.model_dump())
+        return dao.registrar_baja(datos.dict())
     except ValueError as error:
         raise HTTPException(status.HTTP_400_BAD_REQUEST, detail=str(error))
     except Exception as error:
@@ -335,7 +335,7 @@ async def actualizar_estado_equipo(datos: EstadoEquipoEntrada, usuario_actual = 
     verificar_rol(usuario_actual, [1, 2, 3])
     dao = DAOInventario(sesion)
     try:
-        return dao.actualizar_estado(datos.model_dump())
+        return dao.actualizar_estado(datos.dict())
     except ValueError as error:
         raise HTTPException(status.HTTP_400_BAD_REQUEST, detail=str(error))
     except Exception as error:
@@ -346,7 +346,7 @@ async def actualizar_movimiento(datos: MovimientoActualizarEntrada, usuario_actu
     verificar_rol(usuario_actual, [1, 2])
     dao = DAOInventario(sesion)
     try:
-        return dao.actualizar_movimiento(datos.model_dump())
+        return dao.actualizar_movimiento(datos.dict())
     except ValueError as error:
         raise HTTPException(status.HTTP_400_BAD_REQUEST, detail=str(error))
     except Exception as error:
@@ -398,7 +398,7 @@ async def registrar_mantenimiento(datos: MantenimientoEntrada, usuario_actual = 
     verificar_rol(usuario_actual, [1, 2, 3])
     dao = DAOInventario(sesion)
     try:
-        return dao.registrar_mantenimiento(datos.model_dump())
+        return dao.registrar_mantenimiento(datos.dict())
     except ValueError as error:
         raise HTTPException(status.HTTP_400_BAD_REQUEST, detail=str(error))
     except Exception as error:

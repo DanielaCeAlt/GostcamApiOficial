@@ -1,6 +1,6 @@
-# Core FastAPI dependencies - Modern versions for Python 3.11
-fastapi==0.104.1
-uvicorn[standard]==0.24.0
+# Core FastAPI dependencies - Pydantic v1 compatibility for Python 3.11/3.13
+fastapi==0.95.2
+uvicorn[standard]==0.22.0
 gunicorn==21.2.0
 
 # Database dependencies
@@ -16,10 +16,10 @@ bcrypt==4.1.2
 python-dotenv==1.0.0
 python-multipart==0.0.6
 
-# Core Python dependencies - Python 3.11 compatible
-pydantic==2.5.0
+# Core Python dependencies - Pydantic v1 (NO pydantic-core)
+pydantic==1.10.12
 starlette==0.27.0
-anyio==3.7.1
+anyio>=3.7.1,<4.0.0
 click==8.1.7
 h11==0.14.0
 idna==3.4
@@ -32,6 +32,5 @@ cffi>=1.15.0
 pycparser>=2.20
 
 # Additional utilities
-annotated-types==0.6.0
 greenlet>=2.0.0
 colorama==0.4.6
