@@ -5,7 +5,13 @@ from contextlib import asynccontextmanager
 from functools import wraps
 import uvicorn
 import time
+import os
 from typing import Optional
+from dotenv import load_dotenv
+
+# Cargar variables de entorno
+load_dotenv()
+
 from utils.logger import gostcam_logger, log_api_request, log_authentication_attempt
 from utils.cache import cache_manager, schedule_cache_cleanup
 from dao.base_datos import obtener_sesion, verificar_conexion
