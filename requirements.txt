@@ -16,11 +16,11 @@ bcrypt==4.1.2
 python-dotenv==1.0.0
 python-multipart==0.0.6
 
-# Core Python dependencies
+# Core Python dependencies - Fixed compatibility
 pydantic==2.5.0
 pydantic_core==2.33.2
 starlette==0.47.3
-anyio==4.10.0
+anyio>=3.7.1,<4.0.0
 click==8.2.1
 h11==0.16.0
 idna==3.10
